@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bpojgbfgd4vj6"]
+
+[node name="GameWorld" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 302.0
+offset_top = 262.0
+offset_right = 869.0
+offset_bottom = 543.0
+theme_override_font_sizes/font_size = 67
+text = "Game Goes Here"
