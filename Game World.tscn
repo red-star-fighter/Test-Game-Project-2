@@ -1,11 +1,27 @@
-[gd_scene format=3 uid="uid://bpojgbfgd4vj6"]
+[gd_scene load_steps=3 format=3 uid="uid://bpojgbfgd4vj6"]
+
+[ext_resource type="PackedScene" uid="uid://cdj1dk2txixxl" path="res://Player/Player.tscn" id="1_g200y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7sp5"]
+size = Vector2(554, 65)
 
 [node name="GameWorld" type="Node2D"]
 
 [node name="Label" type="Label" parent="."]
-offset_left = 302.0
-offset_top = 262.0
-offset_right = 869.0
-offset_bottom = 543.0
+offset_left = 263.0
+offset_top = 265.0
+offset_right = 830.0
+offset_bottom = 546.0
 theme_override_font_sizes/font_size = 67
 text = "Game Goes Here"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Label"]
+position = Vector2(-114, -117)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Label/StaticBody2D"]
+position = Vector2(384, 167)
+shape = SubResource("RectangleShape2D_p7sp5")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_g200y")]
+position = Vector2(529, 213)
+scale = Vector2(0.2, 0.2)
