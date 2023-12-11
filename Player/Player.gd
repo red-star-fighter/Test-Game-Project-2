@@ -42,7 +42,13 @@ func _physics_process(delta):
 		get_node("AnimatedSprite2D").flip_h = false
 	
 	# Plays animations for player movement.
-	if direction:
+	if Input.is_action_just_pressed("shift"):
+		velocity.x = direction * SPEED
+		if velocity.y == 0:
+			anim.play("Run")
+		if velocity.y > 0:
+			anim.play("Fall")
+	elif direction:
 		velocity.x = direction * SPEED
 		if velocity.y == 0:
 			anim.play("Run")
