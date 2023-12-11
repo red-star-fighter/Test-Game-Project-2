@@ -19,17 +19,17 @@ func _physics_process(delta):
 		doublej = false
 	
 	# Handles jump input and player jump animation.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		anim.play("Jump")
-	elif Input.is_action_just_pressed("ui_accept") and not is_on_floor() and doublej == false:
+	elif Input.is_action_just_pressed("jump") and not is_on_floor() and doublej == false:
 		velocity.y = JUMP_VELOCITY
 		anim.play("Jump")
 		doublej = true
 
 	# Gets the input direction and handles the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = Input.get_axis("moveLeft", "moveRight")
 	
 	# Flips sprite sheet based on direction.
 	if direction == -1:

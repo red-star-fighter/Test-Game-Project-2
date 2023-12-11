@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpojgbfgd4vj6"]
+[gd_scene load_steps=5 format=3 uid="uid://bpojgbfgd4vj6"]
 
 [ext_resource type="PackedScene" uid="uid://cdj1dk2txixxl" path="res://Player/Player.tscn" id="1_g200y"]
+[ext_resource type="Script" path="res://Game World.gd" id="1_pgtpn"]
+[ext_resource type="PackedScene" uid="uid://bxsp5kmg33ibc" path="res://pause_menu.tscn" id="2_2a8qh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7sp5"]
 size = Vector2(554, 65)
 
 [node name="GameWorld" type="Node2D"]
+script = ExtResource("1_pgtpn")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 263.0
@@ -24,3 +27,10 @@ shape = SubResource("RectangleShape2D_p7sp5")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_g200y")]
 position = Vector2(528, 91)
+
+[node name="Pause Menu" parent="CharacterBody2D" instance=ExtResource("2_2a8qh")]
+visible = false
+offset_left = -575.0
+offset_top = -466.0
+offset_right = -575.0
+offset_bottom = -466.0

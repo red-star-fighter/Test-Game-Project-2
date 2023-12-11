@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxsp5kmg33ibc"]
+
+[ext_resource type="Script" path="res://pause_menu.gd" id="1_2ouuv"]
+
+[node name="Pause Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ouuv")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 1156.0
+offset_bottom = 655.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = -2.0
+offset_right = 1152.0
+offset_bottom = 129.0
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 222.0
+offset_right = 616.0
+offset_bottom = 276.0
+text = "Continue"
+
+[node name="Restart" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 302.0
+offset_right = 616.0
+offset_bottom = 356.0
+text = "Restart"
+
+[node name="Exit" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 521.0
+offset_top = 381.0
+offset_right = 627.0
+offset_bottom = 435.0
+text = "Exit to Menu"
+
+[connection signal="pressed" from="Panel/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Panel/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Panel/Exit" to="." method="_on_exit_pressed"]
