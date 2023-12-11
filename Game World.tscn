@@ -23,5 +23,4 @@ position = Vector2(384, 167)
 shape = SubResource("RectangleShape2D_p7sp5")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_g200y")]
-position = Vector2(529, 213)
-scale = Vector2(0.2, 0.2)
+position = Vector2(528, 91)
