@@ -1,6 +1,6 @@
 extends Label
 
-@onready var player = get_node("../CollisionShape2D")
+@onready var player = get_node("../../CollisionShape2D")
 var score = ""
 
 # Called when the node enters the scene tree for the first time.
