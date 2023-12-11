@@ -48,7 +48,7 @@ func _physics_process(delta):
 			anim.play("Run")
 		if velocity.y > 0:
 			anim.play("Fall")
-	elif direction and velocity.x < abs(SPEED):
+	elif direction and velocity.x <= abs(SPEED):
 		velocity.x = direction * SPEED
 		if velocity.y == 0:
 			anim.play("Run")

@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cdj1dk2txixxl"]
+[gd_scene load_steps=17 format=3 uid="uid://cdj1dk2txixxl"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_yg2wf"]
 [ext_resource type="Texture2D" uid="uid://b1e252ki55kup" path="res://Player/Player sheet 4.png" id="2_2gmu1"]
 [ext_resource type="Texture2D" uid="uid://djule0hnqeyv5" path="res://Player/Player sheet 3.png" id="2_v6jed"]
 [ext_resource type="Texture2D" uid="uid://csq1xbunt017i" path="res://Player/Player sheet 2.png" id="3_mj4rd"]
 [ext_resource type="Texture2D" uid="uid://clrklelx272t8" path="res://Player/Player sheet.png" id="4_qfbag"]
-[ext_resource type="Script" path="res://Player/Label.gd" id="7_yn208"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ugk81"]
 size = Vector2(55, 82)
@@ -199,18 +198,18 @@ sprite_frames = SubResource("SpriteFrames_5u1l6")
 animation = &"Fall"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 194)
 offset = Vector2(0, -140)
-
-[node name="Score" type="Label" parent="Camera2D"]
-offset_left = -568.0
-offset_top = -455.0
-offset_right = -383.0
-offset_bottom = -358.0
-text = "SCORE: 0"
-script = ExtResource("7_yn208")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6q4ge")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="Score" type="Label" parent="."]
+offset_left = -562.0
+offset_top = -450.0
+offset_right = -377.0
+offset_bottom = -353.0
+text = "SCORE: 0"
