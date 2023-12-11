@@ -43,12 +43,12 @@ func _physics_process(delta):
 	
 	# Plays animations for player movement.
 	if Input.is_action_just_pressed("shift"):
-		velocity.x = direction * SPEED
+		velocity.x = direction * SPEED * 5
 		if velocity.y == 0:
 			anim.play("Run")
 		if velocity.y > 0:
 			anim.play("Fall")
-	elif direction:
+	elif direction and velocity.x < abs(SPEED):
 		velocity.x = direction * SPEED
 		if velocity.y == 0:
 			anim.play("Run")
