@@ -1,13 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://cdj1dk2txixxl"]
+[gd_scene load_steps=20 format=3 uid="uid://cdj1dk2txixxl"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_yg2wf"]
 [ext_resource type="Texture2D" uid="uid://b1e252ki55kup" path="res://Player/Player sheet 4.png" id="2_2gmu1"]
+[ext_resource type="Script" path="res://Player/CollisionShape2D.gd" id="2_o8lsh"]
 [ext_resource type="Texture2D" uid="uid://djule0hnqeyv5" path="res://Player/Player sheet 3.png" id="2_v6jed"]
 [ext_resource type="Texture2D" uid="uid://csq1xbunt017i" path="res://Player/Player sheet 2.png" id="3_mj4rd"]
 [ext_resource type="Texture2D" uid="uid://clrklelx272t8" path="res://Player/Player sheet.png" id="4_qfbag"]
+[ext_resource type="Script" path="res://Player/Label.gd" id="7_yn208"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ugk81"]
-size = Vector2(238, 309)
+size = Vector2(55, 82)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i08b5"]
 atlas = ExtResource("2_2gmu1")
@@ -59,6 +61,52 @@ animations = [{
 "name": &"Run",
 "speed": 5.0
 }]
+
+[sub_resource type="GDScript" id="GDScript_g3lyl"]
+script/source = "extends RichTextLabel
+
+@onready var player = get_node(\"../..\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	self.text = \"SCORE: \"
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	self.text = \"SCORE: \"
+	pass
+"
+
+[sub_resource type="Animation" id="Animation_r46dd"]
+resource_name = "Fall"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Fall"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_ttp07"]
 resource_name = "Idle"
@@ -147,35 +195,6 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_r46dd"]
-resource_name = "Fall"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Fall"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6q4ge"]
 _data = {
 "Fall": SubResource("Animation_r46dd"),
@@ -188,15 +207,26 @@ _data = {
 script = ExtResource("1_yg2wf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
+position = Vector2(10.5, -40)
 shape = SubResource("RectangleShape2D_ugk81")
+script = ExtResource("2_o8lsh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(11, -40)
+scale = Vector2(0.231092, 0.263754)
 sprite_frames = SubResource("SpriteFrames_5u1l6")
 animation = &"Fall"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -140)
+
+[node name="ScoreCounter" type="RichTextLabel" parent="Camera2D"]
+offset_left = -562.0
+offset_top = -449.0
+offset_right = -493.0
+offset_bottom = -420.0
+text = "SCORE: "
+script = SubResource("GDScript_g3lyl")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -204,3 +234,11 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="Score" type="Label" parent="."]
+offset_left = -474.0
+offset_top = -448.0
+offset_right = -289.0
+offset_bottom = -351.0
+text = "0000000"
+script = ExtResource("7_yn208")
