@@ -11,10 +11,10 @@ size = Vector2(554, 65)
 script = ExtResource("1_pgtpn")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 263.0
-offset_top = 265.0
-offset_right = 830.0
-offset_bottom = 546.0
+offset_left = 260.0
+offset_top = -15.0
+offset_right = 827.0
+offset_bottom = 266.0
 theme_override_font_sizes/font_size = 67
 text = "Game Goes Here"
 
@@ -22,11 +22,11 @@ text = "Game Goes Here"
 position = Vector2(-114, -117)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Label/StaticBody2D"]
-position = Vector2(384, 167)
+position = Vector2(387, 165)
 shape = SubResource("RectangleShape2D_p7sp5")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_g200y")]
-position = Vector2(528, 91)
+position = Vector2(528, -31)
 
 [node name="Pause Menu" parent="CharacterBody2D" instance=ExtResource("2_2a8qh")]
 visible = false

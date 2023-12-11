@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -400.0
 # Gets the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var doublej = false
+var pos = str(int(self.global_transform.origin.y))
 
 @onready var anim = get_node("AnimationPlayer")
 
@@ -17,6 +18,9 @@ func _physics_process(delta):
 	# Resets double jump.
 	if is_on_floor():
 		doublej = false
+	
+	pos = str(int(self.global_transform.origin.y))
+	print(pos)
 	
 	# Handles jump input and player jump animation.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
