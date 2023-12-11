@@ -8,7 +8,7 @@ func _ready():
 	self.text = "SCORE: 0"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _physics_process(_delta):
 	# Checks player score and updates max score.
 	if player.global_transform.origin.y > int(score):
 		score = str(int(player.global_transform.origin.y))

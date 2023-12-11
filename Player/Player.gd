@@ -10,7 +10,13 @@ var pos = str(int(self.global_transform.origin.y))
 
 @onready var anim = get_node("AnimationPlayer")
 
+
 func _physics_process(delta):
+	#tracks Y position as score
+	if self.global_transform.origin.y > int(pos):
+		pos = str(int(self.global_transform.origin.y))
+		$Score.text = "SCORE: " + pos
+		
 	# Adds the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -19,8 +25,6 @@ func _physics_process(delta):
 	if is_on_floor():
 		doublej = false
 	
-	pos = str(int(self.global_transform.origin.y))
-	print(pos)
 	
 	# Handles jump input and player jump animation.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
