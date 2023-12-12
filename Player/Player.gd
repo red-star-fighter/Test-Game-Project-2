@@ -32,6 +32,7 @@ func _physics_process(delta):
 	elif Input.is_action_just_pressed("jump") and not is_on_floor() and doublej == false:
 		velocity.y = JUMP_VELOCITY
 		doublej = true
+		
 	# Handles movement animations.
 	if is_on_floor():
 		if velocity.x or Input.is_action_just_pressed("moveLeft") or Input.is_action_just_pressed("moveRight"):
@@ -44,7 +45,6 @@ func _physics_process(delta):
 		anim.play("Fall")
 		
 	# Gets the input direction and handles the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("moveLeft", "moveRight")
 	
 	# Flips sprite sheet based on direction.
@@ -53,10 +53,11 @@ func _physics_process(delta):
 	elif direction == 1:
 		get_node("AnimatedSprite2D").flip_h = false
 	
-	# Plays animations for player movement.
+	# Handles dashes.
 	if Input.is_action_just_pressed("shift"):
 		velocity.x = direction * SPEED * 5
-	elif Input.is_action_pressed("moveLeft") or Input.is_action_pressed("moveRight") and (sign(velocity.x) == direction or velocity.x == 0):
+	# Handles left/right movement.
+	if Input.is_action_pressed("moveLeft") or Input.is_action_pressed("moveRight") and (sign(velocity.x) == direction or velocity.x == 0):
 		velocity.x = move_toward(velocity.x, direction*SPEED, delta*SPEED*4)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED*delta*4)
