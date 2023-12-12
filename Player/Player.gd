@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var doublej = false
 var canDash = true
+var storedDash = true
 var pos = str(int(self.global_transform.origin.y))
 
 @onready var anim = get_node("AnimationPlayer")
@@ -16,7 +17,7 @@ func _physics_process(delta):
 	#tracks Y position as score
 	if self.global_transform.origin.y > int(pos):
 		pos = str(int(self.global_transform.origin.y))
-		$Score.text = "SCORE: " + pos
+		$Camera2D/Score.text = "SCORE: " + pos
 		
 	# Adds the gravity.
 	if not is_on_floor():
@@ -25,7 +26,16 @@ func _physics_process(delta):
 	# Resets double jump.
 	if is_on_floor():
 		doublej = false
-		canDash = true
+		if storedDash == true:
+			canDash = true
+			storedDash = false
+		if $DashTimer.is_stopped():
+			$DashTimer.start()
+	
+	if canDash == true:
+		$Camera2D/DashCooldown.text = "Dash Ready"
+	else:
+		$Camera2D/DashCooldown.text = "Waiting  " + str(snapped($DashTimer.time_left,.01))
 	
 	# Handles jump input and player jump animation.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -54,6 +64,7 @@ func _physics_process(delta):
 		if velocity.y > 0:
 			anim.play("Fall")
 		canDash = false
+		$DashTimer.start()
 	elif direction and Input.is_action_pressed("moveLeft")or Input.is_action_pressed("moveRight"):
 		print(velocity.x)
 		if sign(velocity.x) == direction or velocity.x == 0:
@@ -72,3 +83,9 @@ func _physics_process(delta):
 			anim.play("Fall")
 
 	move_and_slide()
+
+func _on_dash_timer_timeout():
+	if is_on_floor():
+		canDash = true
+	else:
+		storedDash = true
