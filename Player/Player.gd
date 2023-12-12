@@ -5,25 +5,25 @@ const JUMP_VELOCITY = -400.0
 
 # Gets the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var direction = Input.get_axis("moveLeft", "moveRight")
 var doublej = false
 var canDash = true
-var storedDash = true
+var storedDash = false
 var pos = str(int(self.global_transform.origin.y))
 
 @onready var anim = get_node("AnimationPlayer")
 
-
 func _physics_process(delta):
-	#tracks Y position as score
+	#tracks Y position as score.
 	if self.global_transform.origin.y > int(pos):
 		pos = str(int(self.global_transform.origin.y))
 		$Camera2D/Score.text = "SCORE: " + pos
-		
+	
 	# Adds the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
-	# Resets double jump.
+	# Resets double jump and Dash.
 	if is_on_floor():
 		doublej = false
 		if storedDash == true:
@@ -32,6 +32,7 @@ func _physics_process(delta):
 		if $DashTimer.is_stopped():
 			$DashTimer.start()
 	
+	# Dash cooldown visual.
 	if canDash == true:
 		$Camera2D/DashCooldown.text = "Dash Ready"
 	else:
@@ -43,7 +44,7 @@ func _physics_process(delta):
 	elif Input.is_action_just_pressed("jump") and not is_on_floor() and doublej == false:
 		velocity.y = JUMP_VELOCITY
 		doublej = true
-		
+	
 	# Handles movement animations.
 	if is_on_floor():
 		if velocity.x or Input.is_action_just_pressed("moveLeft") or Input.is_action_just_pressed("moveRight"):
@@ -54,9 +55,6 @@ func _physics_process(delta):
 		anim.play("Jump")
 	else:
 		anim.play("Fall")
-		
-	# Gets the input direction and handles the movement/deceleration.
-	var direction = Input.get_axis("moveLeft", "moveRight")
 	
 	# Flips sprite sheet based on direction.
 	if direction == -1:
@@ -64,18 +62,18 @@ func _physics_process(delta):
 	elif direction == 1:
 		get_node("AnimatedSprite2D").flip_h = false
 	
-
 	# Plays animations for player movement.
 	if Input.is_action_just_pressed("shift") and canDash == true:
 		velocity.x = direction * SPEED * 3.5
 		canDash = false
 		$DashTimer.start()
+	
 	# Handles left/right movement.
 	if Input.is_action_pressed("moveLeft") or Input.is_action_pressed("moveRight") and (sign(velocity.x) == direction or velocity.x == 0):
 		velocity.x = move_toward(velocity.x, direction*SPEED, delta*SPEED*4)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED*delta*4)
-
+	
 	move_and_slide()
 
 func _on_dash_timer_timeout():
