@@ -52,14 +52,17 @@ func _physics_process(delta):
 			anim.play("Run")
 		if velocity.y > 0:
 			anim.play("Fall")
-	elif direction and velocity.x <= abs(SPEED):
-		velocity.x = direction * SPEED
+	elif direction and Input.is_action_pressed("moveLeft")or Input.is_action_pressed("moveRight"):
+		if sign(velocity.x) == direction or velocity.x == 0:
+			velocity.x += direction * SPEED * (delta*2)
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED*delta*4)
 		if velocity.y == 0:
 			anim.play("Run")
 		if velocity.y > 0:
 			anim.play("Fall")
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED*delta*4)
 		if velocity.y == 0:
 			anim.play("Idle")
 		if velocity.y > 0:
