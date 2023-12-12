@@ -5,7 +5,6 @@ const JUMP_VELOCITY = -400.0
 
 # Gets the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var direction = Input.get_axis("moveLeft", "moveRight")
 var doublej = false
 var canDash = true
 var storedDash = false
@@ -14,6 +13,9 @@ var pos = str(int(self.global_transform.origin.y))
 @onready var anim = get_node("AnimationPlayer")
 
 func _physics_process(delta):
+	
+	var direction = Input.get_axis("moveLeft", "moveRight")
+	
 	#tracks Y position as score.
 	if self.global_transform.origin.y > int(pos):
 		pos = str(int(self.global_transform.origin.y))
