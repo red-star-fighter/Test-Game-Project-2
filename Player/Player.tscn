@@ -198,23 +198,12 @@ sprite_frames = SubResource("SpriteFrames_5u1l6")
 animation = &"Fall"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 194)
 offset = Vector2(0, -140)
-
-[node name="Score" type="Label" parent="Camera2D"]
-offset_left = -568.0
-offset_top = -455.0
-offset_right = -383.0
-offset_bottom = -358.0
-text = "SCORE: 0"
-script = ExtResource("7_yn208")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6q4ge")
 }
-<<<<<<< Updated upstream
-=======
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 
@@ -224,4 +213,3 @@ offset_top = -450.0
 offset_right = -377.0
 offset_bottom = -353.0
 text = "SCORE: 0"
->>>>>>> Stashed changes
