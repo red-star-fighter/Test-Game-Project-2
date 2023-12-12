@@ -207,9 +207,21 @@ offset_right = -377.0
 offset_bottom = -353.0
 text = "SCORE: 0"
 
+
+[node name="DashCooldown" type="Label" parent="Camera2D"]
+offset_left = -567.0
+offset_top = 110.0
+offset_right = -483.0
+offset_bottom = 170.0
+text = "Dash Ready"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6q4ge")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
