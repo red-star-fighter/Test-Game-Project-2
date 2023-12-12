@@ -53,8 +53,11 @@ func _physics_process(delta):
 		if velocity.y > 0:
 			anim.play("Fall")
 	elif direction and Input.is_action_pressed("moveLeft")or Input.is_action_pressed("moveRight"):
-		if sign(velocity.x) == direction or velocity.x == 0:
-			velocity.x += direction * SPEED * (delta*2)
+		print(velocity.x)
+		if (sign(velocity.x) == direction or velocity.x == 0) and abs(velocity.x) < SPEED:
+			velocity.x += direction * SPEED * (delta*4)
+		elif velocity.x >= SPEED and sign(velocity.x) == direction:
+			velocity.x = SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED*delta*4)
 		if velocity.y == 0:
