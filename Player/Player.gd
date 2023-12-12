@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -400.0
 # Gets the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var doublej = false
+var canDash = true
 var pos = str(int(self.global_transform.origin.y))
 
 @onready var anim = get_node("AnimationPlayer")
@@ -24,7 +25,7 @@ func _physics_process(delta):
 	# Resets double jump.
 	if is_on_floor():
 		doublej = false
-	
+		canDash = true
 	
 	# Handles jump input and player jump animation.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -46,12 +47,13 @@ func _physics_process(delta):
 		get_node("AnimatedSprite2D").flip_h = false
 	
 	# Plays animations for player movement.
-	if Input.is_action_just_pressed("shift"):
-		velocity.x = direction * SPEED * 5
+	if Input.is_action_just_pressed("shift") and canDash == true:
+		velocity.x = direction * SPEED * 3.5
 		if velocity.y == 0:
 			anim.play("Run")
 		if velocity.y > 0:
 			anim.play("Fall")
+		canDash = false
 	elif direction and Input.is_action_pressed("moveLeft")or Input.is_action_pressed("moveRight"):
 		print(velocity.x)
 		if sign(velocity.x) == direction or velocity.x == 0:
