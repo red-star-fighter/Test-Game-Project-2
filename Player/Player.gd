@@ -26,15 +26,23 @@ func _physics_process(delta):
 		doublej = false
 	
 	
-	# Handles jump input and player jump animation.
+	# Handles jump input.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		anim.play("Jump")
 	elif Input.is_action_just_pressed("jump") and not is_on_floor() and doublej == false:
 		velocity.y = JUMP_VELOCITY
-		anim.play("Jump")
 		doublej = true
-
+	# Handles movement animations.
+	if is_on_floor():
+		if velocity.x or Input.is_action_just_pressed("moveLeft") or Input.is_action_just_pressed("moveRight"):
+			anim.play("Run")
+		else:
+			anim.play("Idle")
+	elif velocity.y >= 0 or Input.is_action_just_pressed("jump"):
+		anim.play("Jump")
+	else:
+		anim.play("Fall")
+		
 	# Gets the input direction and handles the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("moveLeft", "moveRight")
@@ -48,25 +56,9 @@ func _physics_process(delta):
 	# Plays animations for player movement.
 	if Input.is_action_just_pressed("shift"):
 		velocity.x = direction * SPEED * 5
-		if velocity.y == 0:
-			anim.play("Run")
-		if velocity.y > 0:
-			anim.play("Fall")
-	elif direction and Input.is_action_pressed("moveLeft")or Input.is_action_pressed("moveRight"):
-		print(velocity.x)
-		if sign(velocity.x) == direction or velocity.x == 0:
-			velocity.x = move_toward(velocity.x, direction*SPEED, delta*SPEED*4)
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED*delta*4)
-		if velocity.y == 0:
-			anim.play("Run")
-		if velocity.y > 0:
-			anim.play("Fall")
+	elif Input.is_action_pressed("moveLeft") or Input.is_action_pressed("moveRight") and (sign(velocity.x) == direction or velocity.x == 0):
+		velocity.x = move_toward(velocity.x, direction*SPEED, delta*SPEED*4)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED*delta*4)
-		if velocity.y == 0:
-			anim.play("Idle")
-		if velocity.y > 0:
-			anim.play("Fall")
 
 	move_and_slide()
